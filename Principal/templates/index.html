@@ -6,7 +6,7 @@
 -->
 <html>
   <head>
-    <title>Story by HTML5 UP</title>
+    <title>Calcular madurez</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
     <link rel="stylesheet" href="./static/css/main.css" />
@@ -27,6 +27,7 @@
             <td><a href="#first" class="button big wide smooth-scroll-middle">Subir Imagen</a></td>
             <td><a class="button big wide smooth-scroll-middle" id="toggle-camera">Activar Cámara</a></td>
           </tr>
+          <p class="major">Prediccion: </p>
         </div>
         <div class="image" id="camera-container">
           <video id="camera-stream" autoplay playsinline></video>
@@ -42,9 +43,11 @@
             <input type="file" accept=".jpg, .jpeg, .png" id="image-file-input" style="display: none;">
             <label for="image-file-input" id="upload-button" class="button big wide smooth-scroll-middle">Seleccionar Archivo</label>
           </ul>
+          <p class="major">Prediccion: </p>
         </div>
-        <div class="image">
-          <img src="./static/images/aguaymanto1.jpg" alt="" />
+        <div id="div-image" class="image">
+          <!--<img src="./static/images/aguaymanto1.jpg" alt="" />-->
+          <canvas id="campoImagen"></canvas>
         </div>
       </section>
 
@@ -72,5 +75,6 @@
     <script src="./static/js/util.js"></script>
     <script src="./static/js/main.js"></script>
     <script src="./static/js/video.js"></script>
+    <script src="./static/js/imagen.js"></script>
   </body>
 </html>
