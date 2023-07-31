@@ -3,6 +3,7 @@ const elementoVideo = document.getElementById("camera-stream");
 const elementoArchivo = document.getElementById("image-file-input");
 const divImagen = document.getElementById("div-image");
 var canvas = document.getElementById("campoImagen");
+const form = document.getElementById("subirImagen");
 var propiedades = {audio: false, video: true};
 var canvasDim = [divImagen.clientWidth,divImagen.clientHeight];//+180+120, +90,+60, +45,+30
 var modelo = null;
@@ -31,7 +32,10 @@ var modelo = null;
   mostrarImagenCanvas(video, canvas, canvasDim[0], canvasDim[1]);
 })*/
 elementoArchivo.addEventListener("change", (event) => {
+  console.log("cambiado");
   mostrarArchivoCanvas();
+  event.preventDefault()
+  form.submit();
 })
     
 //Recibe un imagen cargada y lo muestra en un canvas
@@ -48,8 +52,6 @@ function mostrarArchivoCanvas(){
 function mostrarImagenCanvas(imagen, canvas, ancho, alto){
   let ctx = canvas.getContext('2d');
   //Necesario para un dimensionamiento correcto
-  console.log(ancho);
-  console.log(alto);
   canvas.width = ancho;
   canvas.height = alto;
   ctx.drawImage(imagen, 0, 0, ancho, alto);
