@@ -26,8 +26,10 @@ def predecir(imagen, modelo):
     prediccion = modelo.predict(np.expand_dims(resize/255, 0))
     #Asignado salida de la predicion a un valor (0: inmaduro, 1: maduro)
     if prediccion > 0.5:
+      print("Maduro")
       return "Maduro"
     else:
+      print("Inmaduro")
       return "Inmaduro"
   except:
     print('Error al cargar imagen')

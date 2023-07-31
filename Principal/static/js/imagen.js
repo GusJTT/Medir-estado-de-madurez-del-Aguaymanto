@@ -31,12 +31,32 @@ var modelo = null;
 /*document.getElementById("tomarFotoBoton").addEventListener("click", () => {
   mostrarImagenCanvas(video, canvas, canvasDim[0], canvasDim[1]);
 })*/
-elementoArchivo.addEventListener("change", (event) => {
+/*elementoArchivo.addEventListener("change", (event) => {
   console.log("cambiado");
   mostrarArchivoCanvas();
   event.preventDefault()
   form.submit();
-})
+})*/
+var formElement = document.forms.subirImagen;
+
+$(document).on('change','#subirImagen',function(e){
+  e.preventDefault();
+  console.log("funcion");
+  mostrarArchivoCanvas();
+  var formData = new FormData(formElement);
+  $.ajax({
+    url: "",
+    type: "POST",
+    data: formData,
+    processData: false,
+    contentType: false,
+    success:function(html){
+      console.log('Saved');
+      $("#resultadoPred").replaceWith($('#resultadoPred', $(html)));
+    }
+  })
+});
+
     
 //Recibe un imagen cargada y lo muestra en un canvas
 function mostrarArchivoCanvas(){
