@@ -7,6 +7,7 @@ const form = document.getElementById("subirImagen");
 var propiedades = {audio: false, video: true};
 var canvasDim = [divImagen.clientWidth,divImagen.clientHeight];//+180+120, +90,+60, +45,+30
 var modelo = null;
+var formElement = document.forms.subirImagen;
 
 //Pidiendo permisos para camara
 /*navigator.mediaDevices.getUserMedia(propiedades)
@@ -37,7 +38,8 @@ var modelo = null;
   event.preventDefault()
   form.submit();
 })*/
-var formElement = document.forms.subirImagen;
+
+console.log("Modelo cargado")
 
 $(document).on('change','#subirImagen',function(e){
   e.preventDefault();
@@ -57,7 +59,6 @@ $(document).on('change','#subirImagen',function(e){
   })
 });
 
-    
 //Recibe un imagen cargada y lo muestra en un canvas
 function mostrarArchivoCanvas(){
   const archivo = elementoArchivo.files[0];
@@ -75,4 +76,32 @@ function mostrarImagenCanvas(imagen, canvas, ancho, alto){
   canvas.width = ancho;
   canvas.height = alto;
   ctx.drawImage(imagen, 0, 0, ancho, alto);
+}
+
+//Asignando csrftoken a la cabecera de la peticion
+$(document).ready(function(){
+  $(function () {
+    $.ajaxSetup({
+      headers: {
+        "X-CSRFToken": getCookie("csrftoken")
+      }
+    });
+  });
+});
+
+//Funcion para obtener el token del html
+function getCookie(name) {
+  let cookieValue = null;
+  if (document.cookie && document.cookie !== '') {
+    const cookies = document.cookie.split(';');
+    for (let i = 0; i < cookies.length; i++) {
+      const cookie = cookies[i].trim();
+      // Does this cookie string begin with the name we want?
+      if (cookie.substring(0, name.length + 1) === (name + '=')) {
+        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+        break;
+      }
+    }
+  }
+  return cookieValue;
 }
