@@ -7,10 +7,12 @@ from django.shortcuts import render
 from django.template import loader
 from django.http import HttpResponse
 from CNN.predecir import predecir
+from django.views.decorators.csrf import ensure_csrf_cookie
 
 model = tf.keras.models.load_model(os.getcwd() + '/CNN/estado-madurez-cnn-ad.h5')
 # Create your views here.
 
+@ensure_csrf_cookie
 def index(request):
   template = loader.get_template('index.html')
   if request.method == "POST":
@@ -21,6 +23,7 @@ def index(request):
       imagen = request.FILES['archImagen']
       imagen = cv2.imdecode(np.fromstring(imagen.read(), np.uint8), cv2.IMREAD_COLOR)
       resultado = predecir(imagen, model)
+      print('aqui1')
       
     #Si es video (medio = 0)
     elif(medio == '0'):
@@ -29,6 +32,7 @@ def index(request):
       imagen = np.array(imagen).reshape(180, 180, 4).astype(np.uint8)
       imagen = cv2.cvtColor(imagen, cv2.COLOR_RGBA2RGB)
       resultado = predecir(imagen, model)
+      print('aqui0')
     context = {
       'resultado': resultado,
     }

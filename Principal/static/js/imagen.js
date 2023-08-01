@@ -9,6 +9,38 @@ var canvasDim = [divImagen.clientWidth,divImagen.clientHeight];//+180+120, +90,+
 var modelo = null;
 var formElement = document.forms.subirImagen;
 
+//Asignando csrftoken a la cabecera de la peticion
+//Funcion para obtener el token del html
+function getCookie(name) {
+  let cookieValue = null;
+  if (document.cookie && document.cookie !== '') {
+      console.log('paso');
+      const cookies = document.cookie.split(';');
+      console.log(cookies);
+      for (let i = 0; i < cookies.length; i++) {
+          const cookie = cookies[i].trim();
+          console.log(cookies);
+          // Does this cookie string begin with the name we want?
+          if (cookie.substring(0, name.length + 1) === (name + '=')) {
+              console.log('dentro');
+              cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+              break;
+          }
+      }
+  }
+  return cookieValue;
+}
+const csrftoken = getCookie('csrftoken');
+
+$(document).ready(function(){
+  $(function () {
+    $.ajaxSetup({
+      headers: {
+        "X-CSRFToken": csrftoken
+      }
+    });
+  });
+});
 //Pidiendo permisos para camara
 /*navigator.mediaDevices.getUserMedia(propiedades)
 .then(//Si se acepta el permiso, inicia stream de video
@@ -46,6 +78,8 @@ $(document).on('change','#subirImagen',function(e){
   mostrarArchivoCanvas();
   let formData = new FormData(formElement);
   formData.append('medio', '1');//0: video, 1: imagen
+  console.log(csrftoken);
+  formData.append('CSRF', getCookie('csrf_token'));
   $.ajax({
     url: "",
     type: "POST",
@@ -54,7 +88,7 @@ $(document).on('change','#subirImagen',function(e){
     contentType: false,
     success:function(html){
       $("#resultadoImg").replaceWith($('#resultadoImg', $(html)));
-    }
+    },
   })
 });
 
@@ -77,30 +111,4 @@ function mostrarImagenCanvas(imagen, canvas, ancho, alto){
   ctx.drawImage(imagen, 0, 0, ancho, alto);
 }
 
-//Asignando csrftoken a la cabecera de la peticion
-$(document).ready(function(){
-  $(function () {
-    $.ajaxSetup({
-      headers: {
-        "X-CSRFToken": getCookie("csrftoken")
-      }
-    });
-  });
-});
 
-//Funcion para obtener el token del html
-function getCookie(name) {
-  let cookieValue = null;
-  if (document.cookie && document.cookie !== '') {
-    const cookies = document.cookie.split(';');
-    for (let i = 0; i < cookies.length; i++) {
-      const cookie = cookies[i].trim();
-      // Does this cookie string begin with the name we want?
-      if (cookie.substring(0, name.length + 1) === (name + '=')) {
-        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-        break;
-      }
-    }
-  }
-  return cookieValue;
-}
