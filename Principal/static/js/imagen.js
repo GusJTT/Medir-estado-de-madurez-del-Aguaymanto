@@ -43,9 +43,9 @@ console.log("Modelo cargado")
 
 $(document).on('change','#subirImagen',function(e){
   e.preventDefault();
-  console.log("funcion");
   mostrarArchivoCanvas();
-  var formData = new FormData(formElement);
+  let formData = new FormData(formElement);
+  formData.append('medio', '1');//0: video, 1: imagen
   $.ajax({
     url: "",
     type: "POST",
@@ -53,8 +53,7 @@ $(document).on('change','#subirImagen',function(e){
     processData: false,
     contentType: false,
     success:function(html){
-      console.log('Saved');
-      $("#resultadoPred").replaceWith($('#resultadoPred', $(html)));
+      $("#resultadoImg").replaceWith($('#resultadoImg', $(html)));
     }
   })
 });

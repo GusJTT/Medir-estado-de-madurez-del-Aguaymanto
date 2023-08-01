@@ -70,6 +70,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'MadurezAguaymanto.wsgi.application'
 
+DATA_UPLOAD_MAX_MEMORY_SIZE = 5242880
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases

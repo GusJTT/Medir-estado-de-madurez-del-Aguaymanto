@@ -24,13 +24,16 @@
           <h1>Estado de Madurez del Aguaymanto</h1>
           <p class="major">Para probar la aplicación puede subir una imagen o usar la camara de su dispositivo.</p>
           <tr>
+            <div style="margin: 0 auto; text-align: center;">
             <td><a href="#first" class="button big wide smooth-scroll-middle">Subir Imagen</a></td>
             <td><a class="button big wide smooth-scroll-middle" id="toggle-camera">Activar Cámara</a></td>
+            </div>
           </tr>
-          <p class="major">Prediccion: </p>
+          <p id="resultadoVid" class="major">Prediccion: {{resultado}}</p>
         </div>
         <div class="image" id="camera-container">
           <video id="camera-stream" autoplay playsinline></video>
+          <canvas id="captura-video" style="display: none"></canvas>
         </div>
       </section>
 
@@ -46,7 +49,7 @@
               <label name="boton" for="image-file-input" id="upload-button" class="button big wide smooth-scroll-middle">Seleccionar Archivo</label>
             </form>
           </ul>
-          <p id="resultadoPred" class="major">Prediccion: {{resultado}}</p>
+          <p id="resultadoImg" class="major">Prediccion: {{resultado}}</p>
         </div>
         <div id="div-image" class="image">
           <!--<img src="./static/images/aguaymanto1.jpg" alt="" />-->
