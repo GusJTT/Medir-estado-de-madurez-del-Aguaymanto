@@ -25,15 +25,18 @@
           <p class="major">Para probar la aplicación puede subir una imagen o usar la camara de su dispositivo.</p>
           <tr>
             <div style="margin: 0 auto; text-align: center;">
-            <td><a href="#first" class="button big wide smooth-scroll-middle">Subir Imagen</a></td>
-            <td><a class="button big wide smooth-scroll-middle" id="toggle-camera">Activar Cámara</a></td>
+			  <td><label>Seleccione Cámara</label>
+			    <select name="camara" id="video-source" style="margin: 0 0 1rem 0;"></select>
+			  </td>
+              <td><a href="#first" class="button big wide smooth-scroll-middle">Subir Imagen</a></td>
+              <td><a class="button big wide smooth-scroll-middle" id="toggle-camera">Activar Cámara</a></td>
             </div>
           </tr>
           <p id="resultadoVid" class="major">Prediccion: {{resultado}}</p>
         </div>
         <div class="image" id="camera-container">
           <video id="camera-stream" autoplay playsinline></video>
-          <canvas id="captura-video" style="display: none"></canvas>
+          <canvas id="captura-video" style="display: none"></canvas> <!--style="display: none"-->
         </div>
       </section>
 
@@ -51,7 +54,7 @@
           </ul>
           <p id="resultadoImg" class="major">Prediccion: {{resultado}}</p>
         </div>
-        <div id="div-image" class="image">
+        <div id="div-image" class="image" style="min-height: 300px;">
           <!--<img src="./static/images/aguaymanto1.jpg" alt="" />-->
           <canvas id="campoImagen"></canvas>
         </div>
